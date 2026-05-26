@@ -1,0 +1,176 @@
+Date,Product,Category,Region,Units_Sold,Revenue,Cost,Profit
+2024-01-05,Widget A,Electronics,North,150,4500.00,2700.00,1800.00
+2024-01-05,Widget B,Electronics,South,89,2670.00,1602.00,1068.00
+2024-01-05,Gadget X,Home & Garden,East,45,1350.00,900.00,450.00
+2024-01-05,Gadget Y,Home & Garden,West,67,2010.00,1340.00,670.00
+2024-01-05,Tool Alpha,Tools,North,200,6000.00,4000.00,2000.00
+2024-01-12,Widget A,Electronics,South,175,5250.00,3150.00,2100.00
+2024-01-12,Widget B,Electronics,East,92,2760.00,1656.00,1104.00
+2024-01-12,Gadget X,Home & Garden,West,38,1140.00,760.00,380.00
+2024-01-12,Gadget Y,Home & Garden,North,71,2130.00,1420.00,710.00
+2024-01-12,Tool Alpha,Tools,South,185,5550.00,3700.00,1850.00
+2024-01-19,Widget A,Electronics,East,160,4800.00,2880.00,1920.00
+2024-01-19,Widget B,Electronics,West,105,3150.00,1890.00,1260.00
+2024-01-19,Gadget X,Home & Garden,North,52,1560.00,1040.00,520.00
+2024-01-19,Gadget Y,Home & Garden,South,48,1440.00,960.00,480.00
+2024-01-19,Tool Alpha,Tools,East,210,6300.00,4200.00,2100.00
+2024-01-26,Widget A,Electronics,West,140,4200.00,2520.00,1680.00
+2024-01-26,Widget B,Electronics,North,98,2940.00,1764.00,1176.00
+2024-01-26,Gadget X,Home & Garden,South,41,1230.00,820.00,410.00
+2024-01-26,Gadget Y,Home & Garden,East,59,1770.00,1180.00,590.00
+2024-01-26,Tool Alpha,Tools,West,195,5850.00,3900.00,1950.00
+2024-02-02,Widget A,Electronics,North,165,4950.00,2970.00,1980.00
+2024-02-02,Widget B,Electronics,South,110,3300.00,1980.00,1320.00
+2024-02-02,Gadget X,Home & Garden,East,55,1650.00,1100.00,550.00
+2024-02-02,Gadget Y,Home & Garden,West,62,1860.00,1240.00,620.00
+2024-02-02,Tool Alpha,Tools,North,220,6600.00,4400.00,2200.00
+2024-02-09,Widget A,Electronics,South,155,4650.00,2790.00,1860.00
+2024-02-09,Widget B,Electronics,East,87,2610.00,1566.00,1044.00
+2024-02-09,Gadget X,Home & Garden,West,49,1470.00,980.00,490.00
+2024-02-09,Gadget Y,Home & Garden,North,73,2190.00,1460.00,730.00
+2024-02-09,Tool Alpha,Tools,South,205,6150.00,4100.00,2050.00
+2024-02-16,Widget A,Electronics,East,180,5400.00,3240.00,2160.00
+2024-02-16,Widget B,Electronics,West,95,2850.00,1710.00,1140.00
+2024-02-16,Gadget X,Home & Garden,North,60,1800.00,1200.00,600.00
+2024-02-16,Gadget Y,Home & Garden,South,55,1650.00,1100.00,550.00
+2024-02-16,Tool Alpha,Tools,East,230,6900.00,4600.00,2300.00
+2024-02-23,Widget A,Electronics,West,145,4350.00,2610.00,1740.00
+2024-02-23,Widget B,Electronics,North,101,3030.00,1818.00,1212.00
+2024-02-23,Gadget X,Home & Garden,South,43,1290.00,860.00,430.00
+2024-02-23,Gadget Y,Home & Garden,East,65,1950.00,1300.00,650.00
+2024-02-23,Tool Alpha,Tools,West,215,6450.00,4300.00,2150.00
+2024-03-01,Widget A,Electronics,North,190,5700.00,3420.00,2280.00
+2024-03-01,Widget B,Electronics,South,115,3450.00,2070.00,1380.00
+2024-03-01,Gadget X,Home & Garden,East,58,1740.00,1160.00,580.00
+2024-03-01,Gadget Y,Home & Garden,West,70,2100.00,1400.00,700.00
+2024-03-01,Tool Alpha,Tools,North,240,7200.00,4800.00,2400.00
+2024-03-08,Widget A,Electronics,South,170,5100.00,3060.00,2040.00
+2024-03-08,Widget B,Electronics,East,108,3240.00,1944.00,1296.00
+2024-03-08,Gadget X,Home & Garden,West,46,1380.00,920.00,460.00
+2024-03-08,Gadget Y,Home & Garden,North,68,2040.00,1360.00,680.00
+2024-03-08,Tool Alpha,Tools,South,225,6750.00,4500.00,2250.00
+2024-03-15,Widget A,Electronics,East,185,5550.00,3330.00,2220.00
+2024-03-15,Widget B,Electronics,West,99,2970.00,1782.00,1188.00
+2024-03-15,Gadget X,Home & Garden,North,63,1890.00,1260.00,630.00
+2024-03-15,Gadget Y,Home & Garden,South,57,1710.00,1140.00,570.00
+2024-03-15,Tool Alpha,Tools,East,235,7050.00,4700.00,2350.00
+2024-03-22,Widget A,Electronics,West,160,4800.00,2880.00,1920.00
+2024-03-22,Widget B,Electronics,North,112,3360.00,2016.00,1344.00
+2024-03-22,Gadget X,Home & Garden,South,50,1500.00,1000.00,500.00
+2024-03-22,Gadget Y,Home & Garden,East,74,2220.00,1480.00,740.00
+2024-03-22,Tool Alpha,Tools,West,210,6300.00,4200.00,2100.00
+2024-03-29,Widget A,Electronics,North,195,5850.00,3510.00,2340.00
+2024-03-29,Widget B,Electronics,South,106,3180.00,1908.00,1272.00
+2024-03-29,Gadget X,Home & Garden,East,54,1620.00,1080.00,540.00
+2024-03-29,Gadget Y,Home & Garden,West,66,1980.00,1320.00,660.00
+2024-03-29,Tool Alpha,Tools,North,245,7350.00,4900.00,2450.00
+2024-04-05,Widget A,Electronics,South,175,5250.00,3150.00,2100.00
+2024-04-05,Widget B,Electronics,East,120,3600.00,2160.00,1440.00
+2024-04-05,Gadget X,Home & Garden,West,48,1440.00,960.00,480.00
+2024-04-05,Gadget Y,Home & Garden,North,72,2160.00,1440.00,720.00
+2024-04-05,Tool Alpha,Tools,South,230,6900.00,4600.00,2300.00
+2024-04-12,Widget A,Electronics,East,200,6000.00,3600.00,2400.00
+2024-04-12,Widget B,Electronics,West,95,2850.00,1710.00,1140.00
+2024-04-12,Gadget X,Home & Garden,North,65,1950.00,1300.00,650.00
+2024-04-12,Gadget Y,Home & Garden,South,58,1740.00,1160.00,580.00
+2024-04-12,Tool Alpha,Tools,East,250,7500.00,5000.00,2500.00
+2024-04-19,Widget A,Electronics,West,155,4650.00,2790.00,1860.00
+2024-04-19,Widget B,Electronics,North,118,3540.00,2124.00,1416.00
+2024-04-19,Gadget X,Home & Garden,South,42,1260.00,840.00,420.00
+2024-04-19,Gadget Y,Home & Garden,East,76,2280.00,1520.00,760.00
+2024-04-19,Tool Alpha,Tools,West,220,6600.00,4400.00,2200.00
+2024-04-26,Widget A,Electronics,North,210,6300.00,3780.00,2520.00
+2024-04-26,Widget B,Electronics,South,102,3060.00,1836.00,1224.00
+2024-04-26,Gadget X,Home & Garden,East,57,1710.00,1140.00,570.00
+2024-04-26,Gadget Y,Home & Garden,West,69,2070.00,1380.00,690.00
+2024-04-26,Tool Alpha,Tools,North,255,7650.00,5100.00,2550.00
+2024-05-03,Widget A,Electronics,South,188,5640.00,3384.00,2256.00
+2024-05-03,Widget B,Electronics,East,125,3750.00,2250.00,1500.00
+2024-05-03,Gadget X,Home & Garden,West,51,1530.00,1020.00,510.00
+2024-05-03,Gadget Y,Home & Garden,North,78,2340.00,1560.00,780.00
+2024-05-03,Tool Alpha,Tools,South,238,7140.00,4760.00,2380.00
+2024-05-10,Widget A,Electronics,East,205,6150.00,3690.00,2460.00
+2024-05-10,Widget B,Electronics,West,88,2640.00,1584.00,1056.00
+2024-05-10,Gadget X,Home & Garden,North,68,2040.00,1360.00,680.00
+2024-05-10,Gadget Y,Home & Garden,South,53,1590.00,1060.00,530.00
+2024-05-10,Tool Alpha,Tools,East,260,7800.00,5200.00,2600.00
+2024-05-17,Widget A,Electronics,West,170,5100.00,3060.00,2040.00
+2024-05-17,Widget B,Electronics,North,130,3900.00,2340.00,1560.00
+2024-05-17,Gadget X,Home & Garden,South,44,1320.00,880.00,440.00
+2024-05-17,Gadget Y,Home & Garden,East,80,2400.00,1600.00,800.00
+2024-05-17,Tool Alpha,Tools,West,228,6840.00,4560.00,2280.00
+2024-05-24,Widget A,Electronics,North,215,6450.00,3870.00,2580.00
+2024-05-24,Widget B,Electronics,South,97,2910.00,1746.00,1164.00
+2024-05-24,Gadget X,Home & Garden,East,61,1830.00,1220.00,610.00
+2024-05-24,Gadget Y,Home & Garden,West,71,2130.00,1420.00,710.00
+2024-05-24,Tool Alpha,Tools,North,265,7950.00,5300.00,2650.00
+2024-05-31,Widget A,Electronics,South,192,5760.00,3456.00,2304.00
+2024-05-31,Widget B,Electronics,East,135,4050.00,2430.00,1620.00
+2024-05-31,Gadget X,Home & Garden,West,53,1590.00,1060.00,530.00
+2024-05-31,Gadget Y,Home & Garden,North,82,2460.00,1640.00,820.00
+2024-05-31,Tool Alpha,Tools,South,242,7260.00,4840.00,2420.00
+2024-06-07,Widget A,Electronics,East,220,6600.00,3960.00,2640.00
+2024-06-07,Widget B,Electronics,West,91,2730.00,1638.00,1092.00
+2024-06-07,Gadget X,Home & Garden,North,70,2100.00,1400.00,700.00
+2024-06-07,Gadget Y,Home & Garden,South,56,1680.00,1120.00,560.00
+2024-06-07,Tool Alpha,Tools,East,270,8100.00,5400.00,2700.00
+2024-06-14,Widget A,Electronics,West,178,5340.00,3204.00,2136.00
+2024-06-14,Widget B,Electronics,North,140,4200.00,2520.00,1680.00
+2024-06-14,Gadget X,Home & Garden,South,47,1410.00,940.00,470.00
+2024-06-14,Gadget Y,Home & Garden,East,84,2520.00,1680.00,840.00
+2024-06-14,Tool Alpha,Tools,West,235,7050.00,4700.00,2350.00
+2024-06-21,Widget A,Electronics,North,225,6750.00,4050.00,2700.00
+2024-06-21,Widget B,Electronics,South,104,3120.00,1872.00,1248.00
+2024-06-21,Gadget X,Home & Garden,East,64,1920.00,1280.00,640.00
+2024-06-21,Gadget Y,Home & Garden,West,75,2250.00,1500.00,750.00
+2024-06-21,Tool Alpha,Tools,North,275,8250.00,5500.00,2750.00
+2024-06-28,Widget A,Electronics,South,198,5940.00,3564.00,2376.00
+2024-06-28,Widget B,Electronics,East,138,4140.00,2484.00,1656.00
+2024-06-28,Gadget X,Home & Garden,West,56,1680.00,1120.00,560.00
+2024-06-28,Gadget Y,Home & Garden,North,86,2580.00,1720.00,860.00
+2024-06-28,Tool Alpha,Tools,South,248,7440.00,4960.00,2480.00
+2024-07-05,Widget A,Electronics,East,230,6900.00,4140.00,2760.00
+2024-07-05,Widget B,Electronics,West,96,2880.00,1728.00,1152.00
+2024-07-05,Gadget X,Home & Garden,North,72,2160.00,1440.00,720.00
+2024-07-05,Gadget Y,Home & Garden,South,60,1800.00,1200.00,600.00
+2024-07-05,Tool Alpha,Tools,East,280,8400.00,5600.00,2800.00
+2024-07-12,Widget A,Electronics,West,185,5550.00,3330.00,2220.00
+2024-07-12,Widget B,Electronics,North,145,4350.00,2610.00,1740.00
+2024-07-12,Gadget X,Home & Garden,South,50,1500.00,1000.00,500.00
+2024-07-12,Gadget Y,Home & Garden,East,88,2640.00,1760.00,880.00
+2024-07-12,Tool Alpha,Tools,West,245,7350.00,4900.00,2450.00
+2024-07-19,Widget A,Electronics,North,235,7050.00,4230.00,2820.00
+2024-07-19,Widget B,Electronics,South,110,3300.00,1980.00,1320.00
+2024-07-19,Gadget X,Home & Garden,East,67,2010.00,1340.00,670.00
+2024-07-19,Gadget Y,Home & Garden,West,79,2370.00,1580.00,790.00
+2024-07-19,Tool Alpha,Tools,North,285,8550.00,5700.00,2850.00
+2024-07-26,Widget A,Electronics,South,202,6060.00,3636.00,2424.00
+2024-07-26,Widget B,Electronics,East,142,4260.00,2556.00,1704.00
+2024-07-26,Gadget X,Home & Garden,West,59,1770.00,1180.00,590.00
+2024-07-26,Gadget Y,Home & Garden,North,90,2700.00,1800.00,900.00
+2024-07-26,Tool Alpha,Tools,South,252,7560.00,5040.00,2520.00
+2024-08-02,Widget A,Electronics,East,240,7200.00,4320.00,2880.00
+2024-08-02,Widget B,Electronics,West,100,3000.00,1800.00,1200.00
+2024-08-02,Gadget X,Home & Garden,North,75,2250.00,1500.00,750.00
+2024-08-02,Gadget Y,Home & Garden,South,63,1890.00,1260.00,630.00
+2024-08-02,Tool Alpha,Tools,East,290,8700.00,5800.00,2900.00
+2024-08-09,Widget A,Electronics,West,190,5700.00,3420.00,2280.00
+2024-08-09,Widget B,Electronics,North,148,4440.00,2664.00,1776.00
+2024-08-09,Gadget X,Home & Garden,South,52,1560.00,1040.00,520.00
+2024-08-09,Gadget Y,Home & Garden,East,92,2760.00,1840.00,920.00
+2024-08-09,Tool Alpha,Tools,West,255,7650.00,5100.00,2550.00
+2024-08-16,Widget A,Electronics,North,245,7350.00,4410.00,2940.00
+2024-08-16,Widget B,Electronics,South,115,3450.00,2070.00,1380.00
+2024-08-16,Gadget X,Home & Garden,East,69,2070.00,1380.00,690.00
+2024-08-16,Gadget Y,Home & Garden,West,81,2430.00,1620.00,810.00
+2024-08-16,Tool Alpha,Tools,North,295,8850.00,5900.00,2950.00
+2024-08-23,Widget A,Electronics,South,208,6240.00,3744.00,2496.00
+2024-08-23,Widget B,Electronics,East,150,4500.00,2700.00,1800.00
+2024-08-23,Gadget X,Home & Garden,West,62,1860.00,1240.00,620.00
+2024-08-23,Gadget Y,Home & Garden,North,94,2820.00,1880.00,940.00
+2024-08-23,Tool Alpha,Tools,South,258,7740.00,5160.00,2580.00
+2024-08-30,Widget A,Electronics,East,250,7500.00,4500.00,3000.00
+2024-08-30,Widget B,Electronics,West,108,3240.00,1944.00,1296.00
+2024-08-30,Gadget X,Home & Garden,North,77,2310.00,1540.00,770.00
+2024-08-30,Gadget Y,Home & Garden,South,66,1980.00,1320.00,660.00
+2024-08-30,Tool Alpha,Tools,East,300,9000.00,6000.00,3000.00
