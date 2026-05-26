@@ -3,6 +3,19 @@ import pandas as pd
 import os
 import sys
 
+# Configure UTF-8 encoding for standard streams on Windows to prevent charmap encoding errors
+if sys.platform.startswith("win"):
+    if hasattr(sys.stdout, "reconfigure"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
+    if hasattr(sys.stderr, "reconfigure"):
+        try:
+            sys.stderr.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
+
 # Add project root to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +38,7 @@ st.set_page_config(
 # --- Load Custom CSS ---
 css_path = os.path.join(os.path.dirname(__file__), "style.css")
 if os.path.exists(css_path):
-    with open(css_path) as f:
+    with open(css_path, encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # --- Sidebar ---
@@ -47,10 +60,10 @@ with st.sidebar:
     st.markdown("""
     | Agent | Model |
     |-------|-------|
-    | 🔍 Profiler | Gemma 4 31B |
+    | 🔍 Profiler | Trinity Large Thinking |
     | 📊 Analyst | Nemotron 3 Super |
-    | 💻 Coder | Qwen3 Coder |
-    | 📝 Reporter | DeepSeek V4 Flash |
+    | 💻 Coder | Poolside Laguna M.1 |
+    | 📝 Reporter | GPT-OSS 120B |
     """)
 
     st.markdown("---")
@@ -99,33 +112,62 @@ with col_upload:
 
 with col_sample:
     st.markdown("<br>", unsafe_allow_html=True)
-    use_sample = st.button("📊 Use Sample Data", use_container_width=True)
+    use_sample = st.button("📊 Use Sample Data")
 
 # --- Load Data ---
-df = None
+if "df" not in st.session_state:
+    st.session_state.df = None
+if "data_source" not in st.session_state:
+    st.session_state.data_source = None
+if "last_uploaded" not in st.session_state:
+    st.session_state.last_uploaded = None
+if "analysis_result" not in st.session_state:
+    st.session_state.analysis_result = None
 
 if use_sample:
     sample_path = os.path.join(os.path.dirname(__file__), "sample_data", "sales_data.csv")
     if os.path.exists(sample_path):
-        df = pd.read_csv(sample_path)
-        st.success("✅ Loaded sample sales dataset (170 rows × 8 columns)")
+        st.session_state.df = pd.read_csv(sample_path)
+        st.session_state.data_source = "sample"
+        st.session_state.analysis_result = None
     else:
         st.error("Sample data file not found.")
 
 elif uploaded_file is not None:
-    try:
-        df = load_data(uploaded_file)
-        st.success(f"✅ Loaded **{uploaded_file.name}** — {df.shape[0]:,} rows × {df.shape[1]} columns")
-    except Exception as e:
-        st.error(f"❌ Failed to load file: {e}")
+    if st.session_state.last_uploaded != uploaded_file.name or st.session_state.df is None:
+        try:
+            st.session_state.df = load_data(uploaded_file)
+            st.session_state.data_source = uploaded_file.name
+            st.session_state.last_uploaded = uploaded_file.name
+            st.session_state.analysis_result = None
+        except Exception as e:
+            st.error(f"❌ Failed to load file: {e}")
+            st.session_state.df = None
+            st.session_state.data_source = None
+            st.session_state.last_uploaded = None
+            st.session_state.analysis_result = None
 
-if df is None:
+else:
+    if st.session_state.data_source != "sample":
+        st.session_state.df = None
+        st.session_state.data_source = None
+        st.session_state.last_uploaded = None
+        st.session_state.analysis_result = None
+
+df = st.session_state.df
+
+if df is not None:
+    if st.session_state.data_source == "sample":
+        st.success("✅ Loaded sample sales dataset (170 rows × 8 columns)")
+    else:
+        st.success(f"✅ Loaded **{st.session_state.data_source}** — {df.shape[0]:,} rows × {df.shape[1]} columns")
+else:
     st.info("👆 Upload a CSV, Excel, or JSON file to get started — or try the sample dataset!")
     st.stop()
 
 # --- Data Preview ---
 with st.expander("📋 Data Preview (first 100 rows)", expanded=False):
-    st.dataframe(df.head(100), use_container_width=True, height=400)
+    st.dataframe(df.head(100), height=400)
 
 # --- Quick Stats ---
 st.markdown("### 📊 Quick Stats")
@@ -147,28 +189,31 @@ st.markdown("### 🎯 Smart Suggestions")
 suggestions = generate_suggestions(df)
 
 suggestion_cols = st.columns(min(len(suggestions), 3))
-selected_suggestion = None
+
+if "question_input" not in st.session_state:
+    st.session_state.question_input = ""
 
 for i, suggestion in enumerate(suggestions):
     col_idx = i % 3
     with suggestion_cols[col_idx]:
-        if st.button(f"💡 {suggestion}", key=f"suggestion_{i}", use_container_width=True):
-            selected_suggestion = suggestion
+        if st.button(f"💡 {suggestion}", key=f"suggestion_{i}"):
+            st.session_state.question_input = suggestion
+            st.session_state.analysis_result = None
 
 # --- Question Input ---
 st.markdown("### 💬 Ask a Question")
 question = st.text_area(
     "What would you like to know about your data?",
-    value=selected_suggestion if selected_suggestion else "",
+    key="question_input",
     height=80,
     placeholder="e.g., Show the distribution of Revenue by Region as a bar chart"
 )
 
 # --- Run Analysis ---
-run_clicked = st.button("🚀 Run Analysis", type="primary", use_container_width=True)
+run_clicked = st.button("🚀 Run Analysis", type="primary")
 
 if run_clicked:
-    if not question.strip():
+    if not st.session_state.question_input.strip():
         st.warning("⚠️ Please enter a question or select a suggestion.")
         st.stop()
 
@@ -181,9 +226,13 @@ if run_clicked:
         try:
             from agents.crew import run_analysis
             result = run_analysis(df, question.strip(), api_key)
+            st.session_state.analysis_result = result
         except Exception as e:
             st.error(f"❌ Analysis failed: {e}")
             st.stop()
+
+if st.session_state.analysis_result is not None:
+    result = st.session_state.analysis_result
 
     if not result.get("success", False):
         st.error(f"❌ Analysis failed: {result.get('error', 'Unknown error')}")
@@ -209,7 +258,7 @@ if run_clicked:
         result_type = exec_result.get("type", "text")
 
         if result_type == "dataframe":
-            st.dataframe(exec_result["data"], use_container_width=True)
+            st.dataframe(exec_result["data"])
             # Download button
             csv_data = exec_result["data"].to_csv(index=False).encode("utf-8")
             st.download_button(
@@ -220,7 +269,7 @@ if run_clicked:
             )
 
         elif result_type == "image":
-            st.image(exec_result["data"], use_container_width=True)
+            st.image(exec_result["data"])
             # Download chart
             with open(exec_result["data"], "rb") as f:
                 st.download_button(
@@ -241,7 +290,7 @@ if run_clicked:
         code = result.get("code", "No code generated.")
         st.markdown("**The exact Python code used for this analysis:**")
         st.code(code, language="python", line_numbers=True)
-        st.caption("💡 This code was generated by the AI Code Writer agent (Qwen3 Coder) and executed in a sandboxed environment.")
+        st.caption("💡 This code was generated by the AI Code Writer agent (Poolside Laguna M.1) and executed in a sandboxed environment.")
 
     # --- Report Tab ---
     with tab_report:

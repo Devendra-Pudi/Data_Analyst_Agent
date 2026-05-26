@@ -23,7 +23,7 @@ def generate_suggestions(df: pd.DataFrame) -> list[str]:
     # Also try to detect datetime-like object columns
     for col in categorical_cols[:]:
         try:
-            pd.to_datetime(df[col], infer_datetime_format=True, errors="raise")
+            pd.to_datetime(df[col], format="mixed", errors="raise")
             datetime_cols.append(col)
             categorical_cols.remove(col)
         except (ValueError, TypeError, OverflowError):

@@ -24,10 +24,10 @@ An agentic AI Data Analyst powered by **CrewAI** and **OpenRouter free models**.
 
 | Agent | Model | Role |
 |-------|-------|------|
-| 🔍 **Data Profiler** | Google Gemma 4 31B | Analyzes dataset schema, types, statistics |
+| 🔍 **Data Profiler** | Arcee-AI Trinity Large Thinking | Analyzes dataset schema, types, statistics |
 | 📊 **Analyst** | NVIDIA Nemotron 3 Super 120B | Plans analysis strategy from your question |
-| 💻 **Code Writer** | Qwen3 Coder | Writes Python code for the analysis |
-| 📝 **Reporter** | DeepSeek V4 Flash | Creates narrative reports with insights |
+| 💻 **Code Writer** | Poolside Laguna M.1 | Writes Python code for the analysis |
+| 📝 **Reporter** | OpenAI GPT-OSS 120B | Creates narrative reports with insights |
 
 All models are **completely free** via OpenRouter (no credit card required).
 
@@ -101,10 +101,10 @@ AI_Data_Analyst/
 ├── docker-compose.yml        # Docker Compose
 ├── agents/
 │   ├── config.py             # Model ID mappings
-│   ├── profiler.py           # Data Profiler (Gemma 4)
-│   ├── analyst.py            # Analyst (Nemotron 3)
-│   ├── coder.py              # Code Writer (Qwen3 Coder)
-│   ├── reporter.py           # Reporter (DeepSeek V4)
+│   ├── profiler.py           # Data Profiler (Trinity Large Thinking)
+│   ├── analyst.py            # Analyst (Nemotron 3 Super)
+│   ├── coder.py              # Code Writer (Poolside Laguna M.1)
+│   ├── reporter.py           # Reporter (GPT-OSS 120B)
 │   └── crew.py               # CrewAI orchestrator
 ├── engine/
 │   ├── executor.py           # Safe code executor

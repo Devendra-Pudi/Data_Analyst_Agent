@@ -9,7 +9,7 @@ from crewai import Agent, Task
 from .config import get_model
 
 
-def create_reporter_agent() -> Agent:
+def create_reporter_agent(api_key: str = None) -> Agent:
     """Create and return the Senior Data Report Writer agent."""
     return Agent(
         role="Senior Data Report Writer",
@@ -22,7 +22,7 @@ def create_reporter_agent() -> Agent:
             "into compelling narratives. You highlight key findings, provide "
             "context, and suggest follow-up questions."
         ),
-        llm=get_model("reporter"),
+        llm=get_model("reporter", api_key=api_key),
         verbose=True,
         allow_delegation=False,
     )

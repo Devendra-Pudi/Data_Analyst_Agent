@@ -21,7 +21,7 @@ import seaborn as sns
 
 
 def execute_code(df: pd.DataFrame, code: str, timeout: int = 30) -> dict:
-    """Execute *code* against a DataFrame and return structured output.
+    """Execute *code* against a DataFrame in a subprocess and return structured output.
 
     Parameters
     ----------
@@ -47,71 +47,127 @@ def execute_code(df: pd.DataFrame, code: str, timeout: int = 30) -> dict:
           were created (saved as a temporary PNG).
         * ``{"type": "error", "data": <str>}`` – on any exception.
     """
-    # ---- build the restricted namespace ----
-    namespace: Dict[str, Any] = {
-        "df": df,
-        "pd": pd,
-        "np": np,
-        "plt": plt,
-        "sns": sns,
-    }
+    import os
+    import sys
+    import tempfile
+    import subprocess
+    import pickle
+    import uuid
 
-    # ---- capture stdout ----
-    old_stdout = sys.stdout
-    captured_output = io.StringIO()
-    sys.stdout = captured_output
+    # Create temporary files for communication
+    temp_dir = tempfile.gettempdir()
+    run_id = str(uuid.uuid4())
 
-    # ---- timeout machinery ----
-    timed_out = threading.Event()
-
-    def _raise_timeout() -> None:
-        timed_out.set()
-
-    timer = threading.Timer(timeout, _raise_timeout)
+    input_df_path = os.path.join(temp_dir, f"df_input_{run_id}.pkl")
+    output_res_path = os.path.join(temp_dir, f"res_output_{run_id}.pkl")
+    output_img_path = os.path.join(temp_dir, f"img_output_{run_id}.png")
+    script_path = os.path.join(temp_dir, f"run_script_{run_id}.py")
 
     try:
-        timer.start()
+        # Save the input DataFrame
+        df.to_pickle(input_df_path)
 
-        exec(code, namespace)  # noqa: S102 – intentional exec
+        # Build the python script content
+        script_lines = [
+            "import pandas as pd",
+            "import numpy as np",
+            "import matplotlib.pyplot as plt",
+            "import seaborn as sns",
+            "import sys",
+            "",
+            "# Load the pre-loaded DataFrame",
+            "df = pd.read_pickle(sys.argv[1])",
+            "",
+            "# Bind common library references to local/global scope",
+            "pd = pd",
+            "np = np",
+            "plt = plt",
+            "sns = sns",
+            "",
+            "# --- USER CODE START ---",
+            code,
+            "# --- USER CODE END ---",
+            "",
+            "# Save result variable if created",
+            "import pickle",
+            "if 'result' in locals() or 'result' in globals():",
+            "    val = locals().get('result', globals().get('result'))",
+            "    with open(sys.argv[2], 'wb') as f:",
+            "        pickle.dump(val, f)",
+            "",
+            "# Save chart if figure exists",
+            "if plt.get_fignums():",
+            "    plt.savefig(sys.argv[3], bbox_inches='tight', dpi=150)",
+            "    plt.close('all')"
+        ]
 
-        if timed_out.is_set():
+        script_content = "\n".join(script_lines)
+
+        # Write script to temporary file using UTF-8 encoding
+        with open(script_path, "w", encoding="utf-8") as f:
+            f.write(script_content)
+
+        # Execute the python script in a subprocess using the same python interpreter
+        process = subprocess.run(
+            [sys.executable, script_path, input_df_path, output_res_path, output_img_path],
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            encoding="utf-8"
+        )
+
+        # Check for execution error
+        if process.returncode != 0:
+            error_msg = process.stderr.strip() or process.stdout.strip() or "Unknown execution error."
+            # Remove wrapper script paths from traceback for readability
+            clean_error = []
+            for line in error_msg.splitlines():
+                if "run_script_" not in line:
+                    clean_error.append(line)
             return {
                 "type": "error",
-                "data": f"Execution timed out after {timeout} seconds.",
-                "code": code,
+                "data": "\n".join(clean_error) or error_msg,
+                "code": code
             }
 
-        # ---- determine result type ----
-
-        # 1. Explicit `result` variable
-        if "result" in namespace:
-            result = namespace["result"]
+        # Check if result variable was serialized
+        if os.path.exists(output_res_path):
+            with open(output_res_path, "rb") as f:
+                result = pickle.load(f)
             if isinstance(result, pd.DataFrame):
                 return {"type": "dataframe", "data": result, "code": code}
             return {"type": "text", "data": str(result), "code": code}
 
-        # 2. Matplotlib figures
-        if plt.get_fignums():
-            tmp = tempfile.NamedTemporaryFile(
-                suffix=".png", delete=False, prefix="analyst_plot_"
-            )
-            plt.savefig(tmp.name, bbox_inches="tight", dpi=150)
-            tmp.close()
-            return {"type": "image", "data": tmp.name, "code": code}
+        # Check if an image was generated
+        if os.path.exists(output_img_path):
+            persistent_img_path = os.path.join(temp_dir, f"analyst_plot_{run_id}.png")
+            os.rename(output_img_path, persistent_img_path)
+            return {"type": "image", "data": persistent_img_path, "code": code}
 
-        # 3. Captured stdout
-        stdout_content = captured_output.getvalue()
-        if stdout_content.strip():
+        # Check for stdout
+        stdout_content = process.stdout.strip()
+        if stdout_content:
             return {"type": "text", "data": stdout_content, "code": code}
 
-        # 4. Nothing produced
         return {"type": "text", "data": "Code executed successfully (no output).", "code": code}
 
+    except subprocess.TimeoutExpired:
+        return {
+            "type": "error",
+            "data": f"Execution timed out after {timeout} seconds.",
+            "code": code
+        }
     except Exception as exc:
-        return {"type": "error", "data": str(exc), "code": code}
-
+        return {
+            "type": "error",
+            "data": f"{type(exc).__name__}: {exc}",
+            "code": code
+        }
     finally:
-        timer.cancel()
-        sys.stdout = old_stdout
-        # Clean up all matplotlib figures to free memory
-        plt.close("all")
+        # Clean up temporary files
+        for path in [input_df_path, output_res_path, output_img_path, script_path]:
+            if os.path.exists(path):
+                try:
+                    os.remove(path)
+                except Exception:
+                    pass

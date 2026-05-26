@@ -9,7 +9,7 @@ from crewai import Agent, Task
 from .config import get_model
 
 
-def create_coder_agent() -> Agent:
+def create_coder_agent(api_key: str = None) -> Agent:
     """Create and return the Senior Python Developer agent."""
     return Agent(
         role="Senior Python Developer",
@@ -23,7 +23,7 @@ def create_coder_agent() -> Agent:
             "visualization. Your code is always well-commented so humans can "
             "understand and verify it."
         ),
-        llm=get_model("coder"),
+        llm=get_model("coder", api_key=api_key),
         verbose=True,
         allow_delegation=False,
     )

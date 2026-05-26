@@ -9,7 +9,7 @@ from crewai import Agent, Task
 from .config import get_model
 
 
-def create_analyst_agent() -> Agent:
+def create_analyst_agent(api_key: str = None) -> Agent:
     """Create and return the Senior Data Analyst agent."""
     return Agent(
         role="Senior Data Analyst",
@@ -23,7 +23,7 @@ def create_analyst_agent() -> Agent:
             "analytical approach — whether it needs aggregation, filtering, "
             "visualization, statistical testing, or a combination."
         ),
-        llm=get_model("analyst"),
+        llm=get_model("analyst", api_key=api_key),
         verbose=True,
         allow_delegation=False,
     )

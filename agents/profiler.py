@@ -10,7 +10,7 @@ from crewai import Agent, Task
 from .config import get_model
 
 
-def create_profiler_agent() -> Agent:
+def create_profiler_agent(api_key: str = None) -> Agent:
     """Create and return the Senior Data Profiler agent."""
     return Agent(
         role="Senior Data Profiler",
@@ -24,7 +24,7 @@ def create_profiler_agent() -> Agent:
             "and key statistics that help analysts understand what they're "
             "working with."
         ),
-        llm=get_model("profiler"),
+        llm=get_model("profiler", api_key=api_key),
         verbose=True,
         allow_delegation=False,
     )
