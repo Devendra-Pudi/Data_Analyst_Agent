@@ -2,7 +2,7 @@
 
 An agentic AI Data Analyst powered by **CrewAI** and **OpenRouter free models**. Upload your data, ask questions in natural language, and get actionable insights with charts, tables, and detailed reports — all with full transparency showing the exact Python code behind every result.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://datanalystagent.streamlit.app)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://ai-data-analyst-by-devendra.streamlit.app/)
 
 ---
 
@@ -77,7 +77,7 @@ streamlit run app.py
 
 ### Option 3: Streamlit Cloud
 
-The app is deployed at: **[datanalystagent.streamlit.app](https://datanalystagent.streamlit.app)**
+The app is deployed at: **[ai-data-analyst-by-devendra.streamlit.app](https://ai-data-analyst-by-devendra.streamlit.app/)**
 
 ---
 
