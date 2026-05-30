@@ -55,15 +55,22 @@ with st.sidebar:
     st.markdown("## ⚙️ Configuration")
     st.markdown("---")
 
-    # API Key Status Display
+    # API Key Status Display / Input
     if api_key:
-        st.success("✅ **API Key**: Configured")
+        st.success("✅ **API Key**: Configured (from env/secrets)")
     else:
-        st.error("❌ **API Key**: Missing")
-        st.caption(
-            "To run the analysis, please set the `OPENROUTER_API_KEY` environment variable "
-            "locally or add it to Streamlit Secrets when deploying."
+        api_key = st.text_input(
+            "🔑 Enter OpenRouter API Key",
+            type="password",
+            help="Get your free API key at [openrouter.ai](https://openrouter.ai)",
+            placeholder="sk-or-v1-..."
         )
+        if not api_key:
+            st.error("❌ **API Key**: Missing")
+            st.caption(
+                "Please enter your OpenRouter API key above, or set the `OPENROUTER_API_KEY` "
+                "environment variable/Streamlit Secrets to run analysis."
+            )
 
     st.markdown("---")
     st.markdown("### 🤖 Agent Models")
