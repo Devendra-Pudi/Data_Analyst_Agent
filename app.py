@@ -41,19 +41,29 @@ if os.path.exists(css_path):
     with open(css_path, encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
+# --- Load API Key ---
+api_key = os.getenv("OPENROUTER_API_KEY", "")
+if not api_key:
+    try:
+        if "OPENROUTER_API_KEY" in st.secrets:
+            api_key = st.secrets["OPENROUTER_API_KEY"]
+    except Exception:
+        pass
+
 # --- Sidebar ---
 with st.sidebar:
     st.markdown("## ⚙️ Configuration")
     st.markdown("---")
 
-    # API Key
-    api_key = st.text_input(
-        "🔑 OpenRouter API Key",
-        type="password",
-        value=os.getenv("OPENROUTER_API_KEY", ""),
-        help="Get your free API key at [openrouter.ai](https://openrouter.ai)",
-        placeholder="sk-or-v1-..."
-    )
+    # API Key Status Display
+    if api_key:
+        st.success("✅ **API Key**: Configured")
+    else:
+        st.error("❌ **API Key**: Missing")
+        st.caption(
+            "To run the analysis, please set the `OPENROUTER_API_KEY` environment variable "
+            "locally or add it to Streamlit Secrets when deploying."
+        )
 
     st.markdown("---")
     st.markdown("### 🤖 Agent Models")
@@ -218,7 +228,7 @@ if run_clicked:
         st.stop()
 
     if not api_key:
-        st.warning("⚠️ Please enter your OpenRouter API key in the sidebar.")
+        st.error("❌ **API Key Missing**: Please configure your `OPENROUTER_API_KEY` (in environment variables or Streamlit secrets) before running the analysis.")
         st.stop()
 
     # Run the CrewAI analysis
